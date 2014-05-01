@@ -49,78 +49,7 @@ public class SimpleDhtProvider extends ContentProvider {
     	passCursor = null;
         return false;
     }
-/*	
-    @Override
-    public int delete(Uri uri, String selection, String[] selectionArgs) {
-    	String hash = SHA1.genHash(selection);
-    	db = dbHelper.getWritableDatabase();
-    	if (selection.matches("@")) {
-    		db.execSQL("DELETE FROM "+ DatabaseHelper.TABLE_NAME);
-    	}
-    	else if (selection.matches("\\*")) {
-    		db.execSQL("DELETE FROM "+ DatabaseHelper.TABLE_NAME);
-    		new DeleteWrapper(myChordNode.getNodeId(),myChordNode.getSuccessor(),selection).sendDelete();
-    	}
-    	else if (hash != null)
-    	{
-    		// Check if one only node in cluster
-    		if (myChordNode.getSuccessorHash().equals(myChordNode.getHashedNodeId())) {
-    			db.delete(DatabaseHelper.TABLE_NAME, selection, selectionArgs);
-    			Log.v("delete", selection);
-    		}
-    		// Check if you are the first node
-    		else if (myChordNode.getPredecessorHash().compareTo(myChordNode.getHashedNodeId()) > 0) {
-    			if (hash.compareTo(myChordNode.getPredecessorHash()) > 0
-    					|| hash.compareTo(myChordNode.getHashedNodeId()) < 0) {
-    				db.delete(DatabaseHelper.TABLE_NAME, selection, selectionArgs);
-        			Log.v("delete", selection);    			}
-    			else if (hash.compareTo(myChordNode.getHashedNodeId()) > 0){
-    				new DeleteWrapper(myChordNode.getNodeId(), myChordNode.getSuccessor(),selection).sendDelete();
-    			}
-    		} // Check to see if last node
-    		else if (myChordNode.getSuccessorHash().compareTo(myChordNode.getHashedNodeId()) < 0) {
-    			if (hash.compareTo(myChordNode.getHashedNodeId()) > 0 ) {
-    				new DeleteWrapper(myChordNode.getNodeId(), myChordNode.getSuccessor(),selection).sendDelete();
-    			}
-    			else if (hash.compareTo(myChordNode.getPredecessorHash()) > 0 
-    						&& hash.compareTo(myChordNode.getHashedNodeId()) < 0){
-    				db.delete(DatabaseHelper.TABLE_NAME, selection, selectionArgs);
-        			Log.v("delete", selection);
-        		}
-    			else if (hash.compareTo(myChordNode.getPredecessorHash()) < 0){
-    				new DeleteWrapper(myChordNode.getNodeId(), myChordNode.getPredecessor(),selection).sendDelete();
-    			}
-    		} 
-    		else {
-    			if (hash.compareTo(myChordNode.getHashedNodeId()) < 0 
-    					&& hash.compareTo(myChordNode.getPredecessorHash()) > 0) {
-    				db.delete(DatabaseHelper.TABLE_NAME, selection, selectionArgs);
-        			Log.v("delete", selection);
-        		}// value belongs here
-    			else {
-    				if (hash.compareTo(myChordNode.getHashedNodeId()) > 0) {
-    					Log.v(TAG, "Sending to Successor....");
-    					new DeleteWrapper(myChordNode.getNodeId(), myChordNode.getSuccessor(),selection).sendDelete();
-    				}
-    				else if (hash.compareTo(myChordNode.getHashedNodeId()) < 0) {
-    					Log.v(TAG, "Sending to Predecessor....");
-    					new DeleteWrapper(myChordNode.getNodeId(), myChordNode.getPredecessor(),selection).sendDelete();
-    				}
-    			}
-    		} // end check for Inflection
-    	}// for all content-value keys 	
-    	
-    	db.close();
-    	getContext().getContentResolver().notifyChange(uri, null);
 
-        return 1;
-    }
-
-    public void localDelete(Uri uri, String selection, String[] selectionArgs) {
-    	db = dbHelper.getWritableDatabase();
-    	db.delete(DatabaseHelper.TABLE_NAME, selection, selectionArgs);
-    }
-*/
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
     	db = dbHelper.getWritableDatabase();
