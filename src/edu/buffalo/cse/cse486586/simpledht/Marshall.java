@@ -58,8 +58,9 @@ public class Marshall {
 		int i = 0;
 	    if (cursor.moveToFirst()) {
 	        do {
-	            rows[i++] = cursor.getString(0);
-	            rows[i++] = cursor.getString(1);
+	            rows[i] = cursor.getString(0);
+	            rows[i] = cursor.getString(1);
+	            i++;
 	        } while (cursor.moveToNext());
 	    }
 	    if (cursor != null && !cursor.isClosed()) {
